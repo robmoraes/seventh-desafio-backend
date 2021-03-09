@@ -11,8 +11,6 @@ class Permission extends Model /*implements Auditable*/
     use UsesUuid;
     // use \OwenIt\Auditing\Auditable;
 
-    protected $connected = 'local';
-
     /**
      * Attributes to include in the Audit.
      *
