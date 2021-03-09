@@ -8,6 +8,7 @@ use App\Models\Local\User;
 use App\Models\Local\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\Security\User as UserResource;
 
 class RegisterController extends Controller
 {
@@ -36,6 +37,6 @@ class RegisterController extends Controller
         $user->roles()->sync($roleCliente);
         DB::commit();
 
-        return $user;
+        return new UserResource($user);
     }
 }
