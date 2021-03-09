@@ -12,8 +12,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, UsesUuid;
 
-    protected $connected = 'local';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -44,6 +42,11 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(\App\Models\Local\Role::class);
+    }
+
+    public function activitylogs()
+    {
+        return $this->hasMany(\App\Models\Local\Activitylog::class);
     }
 
     public function isSuperAdmin()

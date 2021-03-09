@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\Exception\ClientException;
+use \App\Models\Local\Activitylog;
 
 class AuthController extends Controller
 {
@@ -35,6 +36,13 @@ class AuthController extends Controller
 
             $token = json_decode((string) $response->getBody());
             $user = $this->getUser($token->access_token);
+
+            Activitylog::create([
+                'user_id' => $user->id,
+                'description' => 'Login realizado.',
+                'ip' => $_SERVER['REMOTE_ADDR'],
+                'useragent' => $_SERVER['HTTP_USER_AGENT'],
+            ]);
 
             return response()->json([
                 'token' => $token,
