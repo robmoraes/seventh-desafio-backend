@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Register User
+Route::post('/register', 'Api\RegisterController@store')->name('api.register.store');
+
+// Authentication
 Route::post('/login', 'Api\AuthController@login')->name('api.login');
+
+// Access by permission
 Route::middleware('auth:api')->get('/user', 'Api\Security\UserController@getAuthUser');
 Route::middleware('auth:api')->apiResource('/security/users', 'Api\Security\UserController');
 Route::middleware('auth:api')->apiResource('/security/permissions', 'Api\Security\PermissionController');
