@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Local\User;
 use App\Http\Resources\Security\User as UserResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -31,6 +33,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->authorize('security.users.store');
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8|max:255',
+        ]);
+
+        DB::beginTransaction();
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $user->roles()->sync($request->roles);
+        DB::commit();
+
+        return new UserResource($user);
     }
 
     public function getAuthUser(Request $request)
@@ -50,6 +69,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('security.users.show');
+        return new UserResource($user);
     }
 
     /**
@@ -59,9 +79,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         $this->authorize('security.users.update');
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+        ]);
+
+        DB::beginTransaction();
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $user->roles()->sync($request->roles);
+        DB::commit();
+
+        return new UserResource($user);
     }
 
     /**
@@ -70,8 +106,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         $this->authorize('security.users.destroy');
+        $user->delete();
+
+        return response("Usuário excluído com sucesso");
     }
 }
