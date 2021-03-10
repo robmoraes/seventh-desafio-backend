@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Register User
-Route::post('/register', 'Api\RegisterController@store');
+Route::post('/signup', 'Api\RegisterController@store');
 
 // Authentication
 Route::post('/login', 'Api\AuthController@login');

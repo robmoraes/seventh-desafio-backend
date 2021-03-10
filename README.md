@@ -33,6 +33,7 @@ Laravel utiliza [Composer](https://getcomposer.org/) para gerenciar as dependên
 
 Foi usado no desenvolvimento:
 
+- LINUX (não faço ideia se funciona corretamente instalando no windows, provavelmente sim)
 - PHP 7.3.27-9+ubuntu18.04.1+deb.sury.org+1
 - Laravel 7.24
 - Apache2
@@ -96,12 +97,18 @@ Os códigos gerados "Client Id" e "Client secret" devem ser copiados para o arqu
 - PASSPORT_PERSONAL_ACCESS_CLIENT_ID=
 - PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET=
 
-O projeto de backend está configurado e pronto para rodar. Uma alternativa para rodar o sistema é o servidor embutido no PHP:
+## Pronto
 
-```bash
-$ cd /pasta/do/projeto/public
-$ php -S localhost:8000
-```
+O projeto de backend está configurado e pronto para rodar. Será necessário configurar um site no Apache2, ou httpd expondo a pasta "/public" para rodar a aplicação.
+
+Mas como o processo de instalação é relativamente longo, preparei um ambiente de degustação para que possam avaliar. Para isso, publiquei o build do frontend na estrutura de views do laravel e fiz um pequeno ajuste nas rotas do laravel (/routes/web.php) para resolver as uris do front. Sendo assim a API e o Front rodam sob mesmo domínio, mas a construção foi completamente desacoplada.
+
+- [Playground do desafio](https://api.seventh.seemann.com.br)
+
+Lembrando:
+
+- e-mail: desafio@seventh.com.br
+- senha: 12345678
 
 ## API
 
