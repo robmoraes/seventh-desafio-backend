@@ -15,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-// Camada criada exclusivamente para API Backend
+// Caso o projeto de frontend seja instalado na estrutura de arquivos 
+// do projeto de backend, a rota abaixo vai resolver as uris do front.
+Route::get('{any}', function () {
+    return view('quasar');
+})->where('any','.*');
