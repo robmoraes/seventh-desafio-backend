@@ -56,12 +56,20 @@ Agora é necessário renomear o arquivo ".env.example" para ".env" e ajustar a v
 
 - APP_URL=localhost:8000  # por exemplo
 
+### Banco de dados
+
 O banco de dados será baixado em "/database/database.sqlite". Para criar a estrutura e carregar os dados inciais de acesso execute:
 
 ```bash
 $ cd /pasta/do/projeto/
 $ php artisan migrate:fresh --seed
 ```
+
+Após a migração, o sistema de ACL será configurado criando e atribuindo as permissões(permissions) à dois Perfis(roles): (Admin, Cliente), e um usuário será criado com o perfil Admin para permitir o acesso inicial ao sistema.
+
+- Email/login: desafio@seventh.com.br
+- Senha: 12345678
+- Perfil/Role: Admin
 
 Com o banco de dados migrado, agora é necessário configurar um "Password Grant Client" para acesso aos recurso do Oauth de geração de tokens de acesso para os usuários consumidores da API.
 
@@ -94,3 +102,13 @@ O projeto de backend está configurado e pronto para rodar. Uma alternativa para
 $ cd /pasta/do/projeto/public
 $ php -S localhost:8000
 ```
+
+## API
+
+Não houve tempo para configurar o Swagger com documentação da API, então preparei uma página na Wiki com uma breve descrição dos endpoints.
+
+- [github.com/robmoraes/seventh-desafio-backend/wiki/API](https://github.com/robmoraes/seventh-desafio-backend/wiki/API)
+
+Ainda na Wiki, também comentei alguns pontos notáveis do projeto.
+
+- [github.com/robmoraes/seventh-desafio-backend/wiki](https://github.com/robmoraes/seventh-desafio-backend/wiki)
