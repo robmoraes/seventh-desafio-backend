@@ -143,7 +143,7 @@ class SecuritySeeder extends Seeder
         // Inclusão do super usuário para inciar o sistema
         //
         $user = User::create([
-            'name' => 'super usuário',
+            'name' => 'Administrador',
             'email' => 'desafio@seventh.com.br',
             'password' => Hash::make('12345678'),
         ]);
