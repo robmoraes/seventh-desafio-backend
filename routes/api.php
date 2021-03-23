@@ -29,6 +29,5 @@ Route::middleware('auth:api')->apiResource('/security/roles', 'Api\Security\Role
 Route::middleware('auth:api')->get('/profile', 'Api\ProfileController@edit');
 Route::middleware('auth:api')->put('/profile', 'Api\ProfileController@update');
 
-
 // Activity log
 Route::middleware('auth:api')->get('/activities', 'Api\ActivitylogController@index');
